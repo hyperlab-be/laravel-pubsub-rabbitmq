@@ -6,9 +6,8 @@ use Hyperlab\LaravelPubSubRabbitMQ\Message;
 
 class Subscriber
 {
-    public function __construct(string|array $subscriber)
+    public function __construct(string | array $subscriber)
     {
-
     }
 
     public function handle(Message $message): void

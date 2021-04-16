@@ -20,7 +20,7 @@ class RabbitMQJob extends BaseJob
 
         $subscriber = Subscriptions::new()->findSubscriberForMessageType($message->getType());
 
-        if($subscriber !== null) {
+        if ($subscriber !== null) {
             $subscriber->handle($message);
         }
 

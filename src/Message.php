@@ -4,7 +4,9 @@ namespace Hyperlab\LaravelPubSubRabbitMQ;
 
 class Message
 {
-    public function __construct(private string $type, private array $payload) {}
+    public function __construct(private string $type, private array $payload)
+    {
+    }
 
     public function getType(): string
     {
