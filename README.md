@@ -9,19 +9,27 @@ This package provides an opinionated approach to implement Pub/Sub messaging in 
 
 ## Installation
 
-You can install the package via composer:
+Install the package via composer:
 
 ```bash
 composer require hyperlab/laravel-pubsub-rabbitmq
 ```
 
-You can publish the `config/pubsub.php` file with:
+Publish the `config/pubsub.php` config file:
 
 ```bash
 php artisan vendor:publish --provider="Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider" --tag="pubsub-rabbitmq-config"
 ```
 
-The contents of this file look like this:
+Publish the `routes/subscriptions.php` routes file:
+
+```bash
+php artisan vendor:publish --provider="Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider" --tag="pubsub-rabbitmq-subscriptions"
+```
+
+## Configuration
+
+You can configure the package to suit your needs through the `config/pubsub.php` config file. By default, the file looks like this:
 
 ```php
 <?php
@@ -60,33 +68,73 @@ return [
 
 ```
 
-You can publish the `routes/subscriptions.php` file with:
+## Subscribers
 
-```bash
-php artisan vendor:publish --provider="Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider" --tag="pubsub-rabbitmq-subscriptions"
-```
+In order for your application to receive messages from RabbitMQ, it needs to subscribe to one or more message types.
 
-The contents of this file look like this:
+By default, these subscriptions can be defined in the `routes/subscriptions.php` file. However, the path to this file can
+be changed in the [configuration file](#configuration).
+
+The contents of the subscriptions file should look like this:
 
 ```php
 <?php
 
 return [
 
-    // 'user.created' => HandleUserCreatedMessage::class,
+    'user.created' => HandleUserCreatedMessage::class,
 
-    // 'user.deleted' => [HandleUserDeletedMessage::class, 'handle'],
+    'user.deleted' => [HandleUserDeletedMessage::class, 'handle'],
 
 ];
-
 ```
 
-## Usage
+The file returns an associative array in which:
+- **a key** represents a type of messages that the application wants to receive
+- **a value** represents the class within your application that handles the incoming message of this type
 
-```php
-$laravelPubSubRabbitMQ = new Hyperlab\LaravelPubSubRabbitMQ();
-echo $laravelPubSubRabbitMQ->echoPhrase('Hello, world!');
-```
+The handler of a subscription can be defined in two ways:
+
+1. By referencing a class
+
+    ```php
+    'user.created' => HandleUserCreatedMessage::class,
+    ```
+    
+    In this case, the package looks for a public method in the class that accepts a `Hyperlab\LaravelPubSubRabbitMQ\Message`
+    as argument. This method can be called anything, as shown here:
+    
+    ```php
+    class HandleUserCreatedMessage
+    {
+        public function __invoke(Hyperlab\LaravelPubSubRabbitMQ\Message $message): void
+        {
+            //
+        }
+    }
+    
+    class HandleUserCreatedMessage
+    {
+        public function handle(Hyperlab\LaravelPubSubRabbitMQ\Message $message): void
+        {
+            //
+        }
+    }
+    
+    class HandleUserCreatedMessage
+    {
+        public function execute(Hyperlab\LaravelPubSubRabbitMQ\Message $message): void
+        {
+            //
+        }
+    }
+    ```
+
+2. By referencing a class and method
+
+    ```php
+    'user.created' => [HandleUserCreatedMessage::class, 'handle'],
+    ```
 
 ## Testing
 
