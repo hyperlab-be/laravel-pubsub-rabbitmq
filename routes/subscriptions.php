@@ -2,6 +2,8 @@
 
 return [
 
-    'user.created' => null,
+    // 'user.created' => HandleUserCreatedMessage::class,
+
+    // 'user.deleted' => [HandleUserDeletedMessage::class, 'handle'],
 
 ];

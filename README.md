@@ -15,13 +15,13 @@ You can install the package via composer:
 composer require hyperlab/laravel-pubsub-rabbitmq
 ```
 
-You can publish the config file with:
+You can publish the `config/pubsub.php` file with:
 
 ```bash
 php artisan vendor:publish --provider="Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider" --tag="pubsub-rabbitmq-config"
 ```
 
-This is the contents of the published config file:
+The contents of this file look like this:
 
 ```php
 <?php
@@ -60,18 +60,25 @@ return [
 
 ```
 
-You can publish the subscriptions file with:
+You can publish the `routes/subscriptions.php` file with:
 
 ```bash
 php artisan vendor:publish --provider="Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider" --tag="pubsub-rabbitmq-subscriptions"
 ```
 
-This is the contents of the published subscriptions file:
+The contents of this file look like this:
 
 ```php
+<?php
+
 return [
-    //
+
+    // 'user.created' => HandleUserCreatedMessage::class,
+
+    // 'user.deleted' => [HandleUserDeletedMessage::class, 'handle'],
+
 ];
+
 ```
 
 ## Usage
