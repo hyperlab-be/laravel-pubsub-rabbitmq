@@ -16,15 +16,20 @@ class Subscriber
         $this->subscriber = $subscriber;
     }
 
+    public static function new(string | array $subscriber): static
+    {
+        return new static($subscriber);
+    }
+
     public function handle(Message $message): void
     {
         $className = $this->getClassName();
-        $methodName = $this->getMethodName($className);
+        $methodName = $this->getMethodName();
 
         app($className)->{$methodName}($message);
     }
 
-    private function getClassName(): string
+    public function getClassName(): string
     {
         if (is_array($this->subscriber)) {
             return $this->subscriber[0];
@@ -33,17 +38,18 @@ class Subscriber
         return $this->subscriber;
     }
 
-    private function getMethodName(string $className): string
+    public function getMethodName(): string
     {
         if (is_array($this->subscriber) && array_key_exists(1, $this->subscriber)) {
             return $this->subscriber[1];
         }
 
-        return $this->guessMethodName($className);
+        return $this->guessMethodName();
     }
 
-    private function guessMethodName(string $className): string
+    private function guessMethodName(): string
     {
+        $className = $this->getClassName();
         $publicMethods = (new ReflectionClass($className))->getMethods(ReflectionMethod::IS_PUBLIC);
 
         $method = collect($publicMethods)->first(function (ReflectionMethod $method): bool {

@@ -4,38 +4,32 @@ namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
 use Hyperlab\LaravelPubSubRabbitMQ\Message;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\Log;
+use Hyperlab\LaravelPubSubRabbitMQ\Tests\Subscribers\HandleUserCreated;
+use Hyperlab\LaravelPubSubRabbitMQ\Tests\Subscribers\HandleUserDeleted;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\TestCase;
 
 class SubscriberTest extends TestCase
 {
     /** @test */
-    public function it_works()
+    public function it_can_handle_different_types_of_subscribers()
     {
-        $message = new Message('user.created', [
+        $user = [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'john.doe@example.com',
-        ]);
+        ];
 
-        $subscriber = new Subscriber(GreetNewUser::class);
-        $subscriber->handle($message);
-        $subscriber->handle($message);
-        $subscriber->handle($message);
+        $createdMessage = new Message('user.created', $user);
+        $deletedMessage = new Message('user.deleted', $user);
+
+        Subscriber::new(HandleUserCreated::class)->handle($createdMessage);
+        Subscriber::new(HandleUserDeleted::class)->handle($deletedMessage);
+        Subscriber::new([HandleUserDeleted::class, 'handle'])->handle($deletedMessage);
 
         $this->assertEquals([
             "Welcome, John!",
-            "Welcome, John!",
-            "Welcome, John!",
+            "Goodbye email sent to john.doe@example.com",
+            "Goodbye email sent to john.doe@example.com",
         ], Log::read());
-    }
-}
-
-class GreetNewUser
-{
-    public function __invoke(Message $message): void
-    {
-        $firstName = $message->getPayload()['first_name'];
-
-        Log::write("Welcome, {$firstName}!");
     }
 }

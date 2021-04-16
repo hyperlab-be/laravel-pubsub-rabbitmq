@@ -14,6 +14,13 @@ class TestCase extends Orchestra
         Log::clear();
     }
 
+    protected function tearDown(): void
+    {
+        Log::clear();
+        
+        parent::tearDown();
+    }
+
     protected function getPackageProviders($app)
     {
         return [

@@ -3,6 +3,7 @@
 namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
 use Illuminate\Support\Collection;
+use Mockery;
 
 class Subscriptions
 {
@@ -27,7 +28,14 @@ class Subscriptions
 
     public static function new(): self
     {
-        return new static;
+        return app(self::class);
+    }
+
+    public static function partialMock(): Mockery\MockInterface
+    {
+        $mock = Mockery::mock(self::class)->makePartial();
+        app()->bind(self::class, fn() => $mock);
+        return $mock;
     }
 
     public function getMessageTypes(): array
