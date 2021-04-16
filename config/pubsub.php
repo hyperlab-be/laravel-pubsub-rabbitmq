@@ -11,6 +11,6 @@ return [
         'connection' => env('PUBSUB_QUEUE_CONNECTION', 'rabbitmq'),
     ],
 
-    'subscriptions' => base_path('routes/messages.php'),
+    'subscriptions' => base_path('routes/subscriptions.php'),
 
 ];

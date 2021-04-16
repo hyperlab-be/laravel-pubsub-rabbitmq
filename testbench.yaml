@@ -1,2 +1,2 @@
 providers:
-  - Hyperlab\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider
+  - Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider

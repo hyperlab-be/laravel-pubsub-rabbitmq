@@ -3,18 +3,15 @@
 namespace Hyperlab\LaravelPubSubRabbitMQ\Tests;
 
 use Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Spatie\\LaravelPubSubRabbitMQ\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        Log::clear();
     }
 
     protected function getPackageProviders($app)

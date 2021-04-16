@@ -20,7 +20,7 @@
 >
     <testsuites>
         <testsuite name="Hyperlab Test Suite">
-            <directory>tests</directory>
+            <directory>src</directory>
         </testsuite>
     </testsuites>
     <coverage>
