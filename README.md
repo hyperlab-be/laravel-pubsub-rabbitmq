@@ -27,6 +27,59 @@ Publish the `routes/subscriptions.php` routes file:
 php artisan vendor:publish --provider="Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider" --tag="pubsub-rabbitmq-subscriptions"
 ```
 
+Add the following snippet to your application's `config/queue.php` file.
+
+```php
+<?php
+
+return [
+
+    // ...
+
+    'connections' => [
+
+        // ...
+
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'queue' => 'default',
+            'connection' => PhpAmqpLib\Connection\AMQPLazyConnection::class,
+            'hosts' => [
+                [
+                    'host' => env('PUBSUB_RABBITMQ_HOST', '127.0.0.1'),
+                    'port' => env('PUBSUB_RABBITMQ_PORT', 5672),
+                    'user' => env('PUBSUB_RABBITMQ_USER', 'guest'),
+                    'password' => env('PUBSUB_RABBITMQ_PASSWORD', 'guest'),
+                    'vhost' => env('PUBSUB_RABBITMQ_VHOST', '/'),
+                ],
+            ],
+            'options' => [
+                'ssl_options' => [
+                    'cafile' => env('PUBSUB_RABBITMQ_SSL_CAFILE'),
+                    'local_cert' => env('PUBSUB_RABBITMQ_SSL_LOCALCERT'),
+                    'local_key' => env('PUBSUB_RABBITMQ_SSL_LOCALKEY'),
+                    'verify_peer' => env('PUBSUB_RABBITMQ_SSL_VERIFY_PEER', true),
+                    'passphrase' => env('PUBSUB_RABBITMQ_SSL_PASSPHRASE'),
+                ],
+                'queue' => [
+                    'job' => Hyperlab\LaravelPubSubRabbitMQ\Subscriber\RabbitMQJob::class,
+                    'exchange' => env('PUBSUB_RABBITMQ_EXCHANGE'),
+                    'exchange_type' => 'topic',
+                    'prioritize_delayed' =>  true,
+                ],
+            ],
+            'worker' => 'default',
+        ],
+
+    ],
+    
+    // ...
+    
+];
+```
+
+More details about the configuration options for the queue connection can be found in the readme of the [vyuldashev/laravel-queue-rabbitmq](https://github.com/vyuldashev/laravel-queue-rabbitmq) package.
+
 ## Configuration
 
 You can configure the package to suit your needs through the `config/pubsub.php` config file. By default, the file looks like this:
