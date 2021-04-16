@@ -1,6 +1,6 @@
 <?php
 
-namespace HyperlabBe\LaravelPubSubRabbitMQ;
+namespace Hyperlab\LaravelPubSubRabbitMQ;
 
 use Illuminate\Queue\QueueManager;
 use Illuminate\Support\Facades\Event;
@@ -23,8 +23,9 @@ class MessagePublisher
 
             /** @var QueueManager $queueManager */
             $queueManager = app('queue');
+            $queueConnection = config('pubsub.queue.connection');
 
-            $queueManager->connection('rabbitmq')->pushRaw($payload, $event->publishAs());
+            $queueManager->connection($queueConnection)->pushRaw($payload, $event->publishAs());
         });
     }
 }

@@ -33,13 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "HyperlabBe\\LaravelPubSubRabbitMQ\\": "src",
-            "HyperlabBe\\LaravelPubSubRabbitMQ\\Database\\Factories\\": "database/factories"
+            "Hyperlab\\LaravelPubSubRabbitMQ\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "HyperlabBe\\LaravelPubSubRabbitMQ\\Tests\\": "tests"
+            "Hyperlab\\LaravelPubSubRabbitMQ\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -53,11 +52,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "HyperlabBe\\LaravelPubSubRabbitMQ\\LaravelPubSubRabbitMQServiceProvider"
-            ],
-            "aliases": {
-                "LaravelPubSubRabbitMQ": "HyperlabBe\\LaravelPubSubRabbitMQ\\LaravelPubSubRabbitMQFacade"
-            }
+                "Hyperlab\\LaravelPubSubRabbitMQ\\PubSubServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",

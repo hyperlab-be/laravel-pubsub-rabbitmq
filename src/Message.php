@@ -1,6 +1,6 @@
 <?php
 
-namespace HyperlabBe\LaravelPubSubRabbitMQ;
+namespace Hyperlab\LaravelPubSubRabbitMQ;
 
 use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob;
 

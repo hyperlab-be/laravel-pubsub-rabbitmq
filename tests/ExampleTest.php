@@ -1,6 +1,6 @@
 <?php
 
-namespace HyperlabBe\LaravelPubSubRabbitMQ\Tests;
+namespace Hyperlab\LaravelPubSubRabbitMQ\Tests;
 
 class ExampleTest extends TestCase
 {

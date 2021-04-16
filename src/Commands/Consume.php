@@ -1,6 +1,6 @@
 <?php
 
-namespace HyperlabBe\LaravelPubSubRabbitMQ\Commands;
+namespace Hyperlab\LaravelPubSubRabbitMQ\Commands;
 
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Console\Output\ConsoleOutput;

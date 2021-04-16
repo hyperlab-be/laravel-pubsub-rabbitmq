@@ -1,6 +1,6 @@
 <?php
 
-namespace HyperlabBe\LaravelPubSubRabbitMQ;
+namespace Hyperlab\LaravelPubSubRabbitMQ;
 
 interface ShouldPublish
 {

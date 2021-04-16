@@ -1,8 +1,8 @@
 <?php
 
-namespace HyperlabBe\LaravelPubSubRabbitMQ\Tests;
+namespace Hyperlab\LaravelPubSubRabbitMQ\Tests;
 
-use HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider;
+use Hyperlab\LaravelPubSubRabbitMQ\PubSubServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -20,7 +20,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            LaravelPubSubRabbitMQServiceProvider::class,
+            PubSubServiceProvider::class,
         ];
     }
 

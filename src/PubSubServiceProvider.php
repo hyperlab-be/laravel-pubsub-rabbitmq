@@ -1,12 +1,12 @@
 <?php
 
-namespace HyperlabBe\LaravelPubSubRabbitMQ;
+namespace Hyperlab\LaravelPubSubRabbitMQ;
 
-use HyperlabBe\LaravelPubSubRabbitMQ\Commands\Consume;
+use Hyperlab\LaravelPubSubRabbitMQ\Commands\Consume;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelPubSubRabbitMQServiceProvider extends PackageServiceProvider
+class PubSubServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {

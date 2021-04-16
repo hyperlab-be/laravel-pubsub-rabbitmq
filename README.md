@@ -18,13 +18,13 @@ composer require hyperlab-be/laravel-pubsub-rabbitmq
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider" --tag="laravel-pubsub-rabbitmq-migrations"
+php artisan vendor:publish --provider="Hyperlab\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider" --tag="laravel-pubsub-rabbitmq-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider" --tag="laravel-pubsub-rabbitmq-config"
+php artisan vendor:publish --provider="Hyperlab\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider" --tag="laravel-pubsub-rabbitmq-config"
 ```
 
 This is the contents of the published config file:
@@ -37,7 +37,7 @@ return [
 ## Usage
 
 ```php
-$laravelPubSubRabbitMQ = new HyperlabBe\LaravelPubSubRabbitMQ();
+$laravelPubSubRabbitMQ = new Hyperlab\LaravelPubSubRabbitMQ();
 echo $laravelPubSubRabbitMQ->echoPhrase('Hello, world!');
 ```
 
@@ -61,7 +61,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Hyperlab](https://github.com/hyperlab-be)
+- [Hyperlab](https://hyperlab.be)
 - [All Contributors](../../contributors)
 
 ## License

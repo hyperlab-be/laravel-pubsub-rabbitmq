@@ -19,7 +19,7 @@
     verbose="true"
 >
     <testsuites>
-        <testsuite name="HyperlabBe Test Suite">
+        <testsuite name="Hyperlab Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
