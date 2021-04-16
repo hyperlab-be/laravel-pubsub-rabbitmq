@@ -1,9 +1,9 @@
 # Laravel Pub/Sub RabbitMQ
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/hyperlab-be/laravel-pubsub-rabbitmq.svg?style=flat-square)](https://packagist.org/packages/hyperlab-be/laravel-pubsub-rabbitmq)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hyperlab/laravel-pubsub-rabbitmq.svg?style=flat-square)](https://packagist.org/packages/hyperlab/laravel-pubsub-rabbitmq)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/hyperlab-be/laravel-pubsub-rabbitmq/run-tests?label=tests)](https://github.com/hyperlab-be/laravel-pubsub-rabbitmq/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/hyperlab-be/laravel-pubsub-rabbitmq/Check%20&%20fix%20styling?label=code%20style)](https://github.com/hyperlab-be/laravel-pubsub-rabbitmq/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/hyperlab-be/laravel-pubsub-rabbitmq.svg?style=flat-square)](https://packagist.org/packages/hyperlab-be/laravel-pubsub-rabbitmq)
+[![Total Downloads](https://img.shields.io/packagist/dt/hyperlab/laravel-pubsub-rabbitmq.svg?style=flat-square)](https://packagist.org/packages/hyperlab/laravel-pubsub-rabbitmq)
 
 This package provides an opinionated approach to implement Pub/Sub messaging in Laravel using RabbitMQ.
 
@@ -12,7 +12,7 @@ This package provides an opinionated approach to implement Pub/Sub messaging in 
 You can install the package via composer:
 
 ```bash
-composer require hyperlab-be/laravel-pubsub-rabbitmq
+composer require hyperlab/laravel-pubsub-rabbitmq
 ```
 
 You can publish and run the migrations with:
