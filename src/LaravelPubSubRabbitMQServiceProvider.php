@@ -2,9 +2,9 @@
 
 namespace HyperlabBe\LaravelPubSubRabbitMQ;
 
+use HyperlabBe\LaravelPubSubRabbitMQ\Commands\LaravelPubSubRabbitMQCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use HyperlabBe\LaravelPubSubRabbitMQ\Commands\LaravelPubSubRabbitMQCommand;
 
 class LaravelPubSubRabbitMQServiceProvider extends PackageServiceProvider
 {

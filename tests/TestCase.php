@@ -2,9 +2,9 @@
 
 namespace HyperlabBe\LaravelPubSubRabbitMQ\Tests;
 
+use HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider;
 
 class TestCase extends Orchestra
 {
