@@ -13,6 +13,7 @@ class Log
     {
         $lines = explode(PHP_EOL, file_get_contents(__DIR__.'/test.log'));
         array_pop($lines);
+
         return $lines;
     }
 

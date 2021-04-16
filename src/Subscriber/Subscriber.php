@@ -9,9 +9,9 @@ use ReflectionNamedType;
 
 class Subscriber
 {
-    private string|array $subscriber;
+    private string | array $subscriber;
 
-    public function __construct(string|array $subscriber)
+    public function __construct(string | array $subscriber)
     {
         $this->subscriber = $subscriber;
     }
@@ -26,7 +26,7 @@ class Subscriber
 
     private function getClassName(): string
     {
-        if(is_array($this->subscriber)) {
+        if (is_array($this->subscriber)) {
             return $this->subscriber[0];
         }
 
@@ -35,7 +35,7 @@ class Subscriber
 
     private function getMethodName(string $className): string
     {
-        if(is_array($this->subscriber) && array_key_exists(1, $this->subscriber)) {
+        if (is_array($this->subscriber) && array_key_exists(1, $this->subscriber)) {
             return $this->subscriber[1];
         }
 
@@ -62,7 +62,7 @@ class Subscriber
             return $type->getName() === Message::class;
         });
 
-        if($method === null) {
+        if ($method === null) {
             throw new \Exception("Could not find a message handler method in Subscriber '{$className}'.");
         }
 
