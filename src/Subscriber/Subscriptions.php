@@ -18,7 +18,7 @@ class Subscriptions
             throw new \Exception("Could not read the subscriptions from '{$pathToSubscriptionsFile}'.");
         }
 
-        if(! is_array($subscriptions)) {
+        if (! is_array($subscriptions)) {
             throw new \Exception("The subscriptions file should return an array.");
         }
 
@@ -39,7 +39,7 @@ class Subscriptions
     {
         $subscriber = $this->subscriptions->get($messageType);
 
-        if($subscriber === null) {
+        if ($subscriber === null) {
             return null;
         }
 
