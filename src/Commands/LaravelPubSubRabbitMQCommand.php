@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace HyperlabBe\LaravelPubSubRabbitMQ\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelPubSubRabbitMQCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel_pubsub_rabbitmq';
 
     public $description = 'My command';
 

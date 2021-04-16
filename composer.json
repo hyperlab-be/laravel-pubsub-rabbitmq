@@ -1,17 +1,17 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "hyperlab-be/laravel_pubsub_rabbitmq",
+    "description": "An opinionated approach to implement PubSub messaging in Laravel.",
     "keywords": [
-        ":vendor_name",
+        "hyperlab-be",
         "laravel",
-        "package_slug"
+        "laravel_pubsub_rabbitmq"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/hyperlab-be/laravel_pubsub_rabbitmq",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Hyperlab",
+            "email": "kempenmichiel@gmail.com",
             "role": "Developer"
         }
     ],
@@ -30,13 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "HyperlabBe\\LaravelPubSubRabbitMQ\\": "src",
+            "HyperlabBe\\LaravelPubSubRabbitMQ\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "HyperlabBe\\LaravelPubSubRabbitMQ\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -50,10 +50,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "HyperlabBe\\LaravelPubSubRabbitMQ\\LaravelPubSubRabbitMQServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\SkeletonFacade"
+                "LaravelPubSubRabbitMQ": "HyperlabBe\\LaravelPubSubRabbitMQ\\LaravelPubSubRabbitMQFacade"
             }
         }
     },
