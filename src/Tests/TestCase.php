@@ -17,7 +17,7 @@ class TestCase extends Orchestra
     protected function tearDown(): void
     {
         Log::clear();
-        
+
         parent::tearDown();
     }
 
