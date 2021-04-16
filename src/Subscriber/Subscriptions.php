@@ -34,7 +34,8 @@ class Subscriptions
     public static function partialMock(): Mockery\MockInterface
     {
         $mock = Mockery::mock(self::class)->makePartial();
-        app()->bind(self::class, fn() => $mock);
+        app()->bind(self::class, fn () => $mock);
+
         return $mock;
     }
 
