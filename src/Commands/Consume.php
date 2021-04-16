@@ -30,9 +30,15 @@ class Consume
 
     private function getRoutingKeys(): array
     {
-        return [
-            //
-        ];
+        $pathToSubscriptionsFile = config('pubsub.subscriptions');
+
+        try {
+            $subscriptions = require $pathToSubscriptionsFile;
+        } catch (\Throwable $exception) {
+            throw new \Exception("Could not read the subscriptions from '{$pathToSubscriptionsFile}'.");
+        }
+
+        return array_keys($subscriptions);
     }
 
     private function call(string $command): void
