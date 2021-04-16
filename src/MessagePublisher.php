@@ -10,10 +10,11 @@ class MessagePublisher
     public static function register(): void
     {
         Event::listen('*', function (string $eventName, array $data) {
-
             $event = $data[0];
 
-            if(! $event instanceof ShouldPublish) return;
+            if (! $event instanceof ShouldPublish) {
+                return;
+            }
 
             $payload = json_encode([
                 'type' => $event->publishAs(),
@@ -24,7 +25,6 @@ class MessagePublisher
             $queueManager = app('queue');
 
             $queueManager->connection('rabbitmq')->pushRaw($payload, $event->publishAs());
-
         });
     }
 }
