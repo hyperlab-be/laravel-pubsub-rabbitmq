@@ -4,6 +4,7 @@ namespace Hyperlab\LaravelPubSubRabbitMQ;
 
 use Hyperlab\LaravelPubSubRabbitMQ\Publisher\MessagePublisher;
 use Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Commands\Consume;
+use Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Commands\Register;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -19,6 +20,7 @@ class PubSubServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-pubsub-rabbitmq')
             ->hasConfigFile('pubsub')
+            ->hasCommand(Register::class)
             ->hasCommand(Consume::class);
     }
 
