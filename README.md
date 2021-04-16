@@ -1,44 +1,30 @@
-# An opinionated approach to implement PubSub messaging in Laravel.
+# Laravel Pub/Sub RabbitMQ
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/hyperlab-be/laravel_pubsub_rabbitmq.svg?style=flat-square)](https://packagist.org/packages/hyperlab-be/laravel_pubsub_rabbitmq)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/hyperlab-be/laravel_pubsub_rabbitmq/run-tests?label=tests)](https://github.com/hyperlab-be/laravel_pubsub_rabbitmq/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/hyperlab-be/laravel_pubsub_rabbitmq/Check%20&%20fix%20styling?label=code%20style)](https://github.com/hyperlab-be/laravel_pubsub_rabbitmq/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/hyperlab-be/laravel_pubsub_rabbitmq.svg?style=flat-square)](https://packagist.org/packages/hyperlab-be/laravel_pubsub_rabbitmq)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hyperlab-be/laravel-pubsub-rabbitmq.svg?style=flat-square)](https://packagist.org/packages/hyperlab-be/laravel-pubsub-rabbitmq)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/hyperlab-be/laravel-pubsub-rabbitmq/run-tests?label=tests)](https://github.com/hyperlab-be/laravel-pubsub-rabbitmq/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/hyperlab-be/laravel-pubsub-rabbitmq/Check%20&%20fix%20styling?label=code%20style)](https://github.com/hyperlab-be/laravel-pubsub-rabbitmq/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/hyperlab-be/laravel-pubsub-rabbitmq.svg?style=flat-square)](https://packagist.org/packages/hyperlab-be/laravel-pubsub-rabbitmq)
 
-[](delete) 1) manually replace `Hyperlab, hyperlab-be, auhor@domain.com, hyperlab-be, hyperlab-be, Vendor Name, laravel-pubsub-rabbitmq, laravel_pubsub_rabbitmq, laravel_pubsub_rabbitmq, LaravelPubSubRabbitMQ, An opinionated approach to implement PubSub messaging in Laravel.` with their correct values
-[](delete) in `CHANGELOG.md, LICENSE.md, README.md, ExampleTest.php, ModelFactory.php, LaravelPubSubRabbitMQ.php, LaravelPubSubRabbitMQCommand.php, LaravelPubSubRabbitMQFacade.php, LaravelPubSubRabbitMQServiceProvider.php, TestCase.php, composer.json, create_laravel_pubsub_rabbitmq_table.php.stub`
-[](delete) and delete `configure-laravel_pubsub_rabbitmq.sh`
-
-[](delete) 2) You can also run `./configure-laravel_pubsub_rabbitmq.sh` to do this automatically.
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/package-laravel_pubsub_rabbitmq-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/package-laravel_pubsub_rabbitmq-laravel)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+This package provides an opinionated approach to implement Pub/Sub messaging in Laravel using RabbitMQ.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require hyperlab-be/laravel_pubsub_rabbitmq
+composer require hyperlab-be/laravel-pubsub-rabbitmq
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider" --tag="laravel_pubsub_rabbitmq-migrations"
+php artisan vendor:publish --provider="HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider" --tag="laravel-pubsub-rabbitmq-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider" --tag="laravel_pubsub_rabbitmq-config"
+php artisan vendor:publish --provider="HyperlabBe\LaravelPubSubRabbitMQ\LaravelPubSubRabbitMQServiceProvider" --tag="laravel-pubsub-rabbitmq-config"
 ```
 
 This is the contents of the published config file:
@@ -51,8 +37,8 @@ return [
 ## Usage
 
 ```php
-$laravel_pubsub_rabbitmq = new HyperlabBe\LaravelPubSubRabbitMQ();
-echo $laravel_pubsub_rabbitmq->echoPhrase('Hello, Spatie!');
+$laravelPubSubRabbitMQ = new HyperlabBe\LaravelPubSubRabbitMQ();
+echo $laravelPubSubRabbitMQ->echoPhrase('Hello, world!');
 ```
 
 ## Testing

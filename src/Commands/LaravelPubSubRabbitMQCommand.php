@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class LaravelPubSubRabbitMQCommand extends Command
 {
-    public $signature = 'laravel_pubsub_rabbitmq';
+    public $signature = 'pubsub';
 
     public $description = 'My command';
 

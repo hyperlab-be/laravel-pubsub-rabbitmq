@@ -1,12 +1,14 @@
 {
-    "name": "hyperlab-be/laravel_pubsub_rabbitmq",
-    "description": "An opinionated approach to implement PubSub messaging in Laravel.",
+    "name": "hyperlab-be/laravel-pubsub-rabbitmq",
+    "description": "An opinionated approach to implement Pub/Sub messaging in Laravel using RabbitMQ.",
     "keywords": [
         "hyperlab-be",
         "laravel",
-        "laravel_pubsub_rabbitmq"
+        "pubsub",
+        "rabbitmq",
+        "laravel-pubsub-rabbitmq"
     ],
-    "homepage": "https://github.com/hyperlab-be/laravel_pubsub_rabbitmq",
+    "homepage": "https://github.com/hyperlab-be/laravel-pubsub-rabbitmq",
     "license": "MIT",
     "authors": [
         {

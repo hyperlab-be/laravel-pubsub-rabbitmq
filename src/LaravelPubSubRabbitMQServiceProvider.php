@@ -16,10 +16,8 @@ class LaravelPubSubRabbitMQServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('laravel_pubsub_rabbitmq')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel_pubsub_rabbitmq_table')
+            ->name('laravel-pubsub-rabbitmq')
+            ->hasConfigFile('pubsub')
             ->hasCommand(LaravelPubSubRabbitMQCommand::class);
     }
 }
