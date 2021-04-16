@@ -2,6 +2,6 @@
 
 return [
 
-    //
+    'user.created' => null,
 
 ];

@@ -2,28 +2,30 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ;
 
-use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob;
-
-class Message extends RabbitMQJob
+class Message
 {
-    public function getName(): string
-    {
-        $type = $this->payload()['type'];
+    public function __construct(private string $type, private array $payload) {}
 
-        return "Handle message: {$type}";
+    public function getType(): string
+    {
+        return $this->type;
     }
 
-    public function fire(): void
+    public function getPayload(): array
     {
-        $this->payload();
-
-        // TODO: handle message
-
-        $this->delete();
+        return $this->payload;
     }
 
-    protected function failed($e)
+    public function serialize(): string
     {
-        $this->release();
+        return json_encode([
+            'type' => $this->type,
+            'payload' => $this->payload,
+        ]);
+    }
+
+    public static function deserialize(array $serialization): static
+    {
+        return new static($serialization['type'], $serialization['payload']);
     }
 }

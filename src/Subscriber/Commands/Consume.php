@@ -1,7 +1,8 @@
 <?php
 
-namespace Hyperlab\LaravelPubSubRabbitMQ\Commands;
+namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Commands;
 
+use Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Subscriptions;
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -16,29 +17,35 @@ class Consume
         $queueConnection = config('pubsub.queue.connection');
         $exchange = config('pubsub.rabbitmq.exchange');
         $queue = config('pubsub.rabbitmq.queue');
-        $routingKeys = $this->getRoutingKeys();
 
+        $this->declareExchange($queueConnection, $exchange);
+        $this->declareQueue($queueConnection, $queue);
+        $this->declareQueueBindings($queueConnection, $exchange, $queue);
+        $this->startConsumer($queueConnection, $queue);
+    }
+
+    private function declareExchange(string $queueConnection, string $exchange): void
+    {
         $this->call("rabbitmq:exchange-declare {$exchange} {$queueConnection} --type topic");
+    }
+
+    private function declareQueue(string $queueConnection, string $queue): void
+    {
         $this->call("rabbitmq:queue-declare {$queue} {$queueConnection}");
+    }
+
+    private function declareQueueBindings(string $queueConnection, string $exchange, string $queue): void
+    {
+        $routingKeys = Subscriptions::new()->getMessageTypes();
 
         foreach ($routingKeys as $routingKey) {
             $this->call("rabbitmq:queue-bind {$queue} {$exchange} {$queueConnection} --routing-key {$routingKey}");
         }
-
-        $this->call("rabbitmq:consume {$queueConnection} --name {$queue} --queue {$queue}");
     }
 
-    private function getRoutingKeys(): array
+    private function startConsumer(string $queueConnection, string $queue): void
     {
-        $pathToSubscriptionsFile = config('pubsub.subscriptions');
-
-        try {
-            $subscriptions = require $pathToSubscriptionsFile;
-        } catch (\Throwable $exception) {
-            throw new \Exception("Could not read the subscriptions from '{$pathToSubscriptionsFile}'.");
-        }
-
-        return array_keys($subscriptions);
+        $this->call("rabbitmq:consume {$queueConnection} --name {$queue} --queue {$queue}");
     }
 
     private function call(string $command): void

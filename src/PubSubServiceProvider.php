@@ -2,7 +2,8 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ;
 
-use Hyperlab\LaravelPubSubRabbitMQ\Commands\Consume;
+use Hyperlab\LaravelPubSubRabbitMQ\Publisher\MessagePublisher;
+use Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Commands\Consume;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
