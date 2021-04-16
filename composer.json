@@ -36,11 +36,6 @@
             "Hyperlab\\LaravelPubSubRabbitMQ\\": "src"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Hyperlab\\LaravelPubSubRabbitMQ\\Tests\\": "tests"
-        }
-    },
     "scripts": {
         "psalm": "vendor/bin/psalm",
         "test": "./vendor/bin/testbench package:test --parallel --no-coverage",

@@ -3,6 +3,7 @@
 namespace Hyperlab\LaravelPubSubRabbitMQ;
 
 use Illuminate\Queue\QueueManager;
+use Illuminate\Support\Str;
 
 class Message
 {
@@ -31,15 +32,13 @@ class Message
         $queueManager = app('queue');
         $queueConnection = config('pubsub.queue.connection');
 
-        $queueManager->connection($queueConnection)->pushRaw($this->serialize(), $this->type);
-    }
-
-    private function serialize(): string
-    {
-        return json_encode([
+        $data = json_encode([
+            'uuid' => Str::uuid(),
             'type' => $this->type,
             'payload' => $this->payload,
         ]);
+
+        $queueManager->connection($queueConnection)->pushRaw($data, $this->type);
     }
 
     public static function deserialize(array $serialization): static
