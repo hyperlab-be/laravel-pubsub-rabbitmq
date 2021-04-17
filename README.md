@@ -152,7 +152,7 @@ The handler of a subscription can be defined in two ways:
     'user.created' => HandleUserCreatedMessage::class,
     ```
     
-    In this case, the package looks for a public method in the class that accepts a `Hyperlab\LaravelPubSubRabbitMQ\Message`
+    In this case, the package looks for a public method in the class that accepts a `Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Message`
     as argument. This method can be called anything, as shown here:
 
     ```php
