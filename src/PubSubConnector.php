@@ -2,12 +2,12 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ;
 
+use Exception;
 use Hyperlab\LaravelPubSubRabbitMQ\Subscriber\QueueJob;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Queue;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\WorkerStopping;
-use Exception;
 use Illuminate\Queue\QueueManager;
 use PhpAmqpLib\Connection\AbstractConnection;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
@@ -43,6 +43,7 @@ class PubSubConnector extends RabbitMQConnector
     public function withDefaultWorker(): static
     {
         $this->workerType = 'default';
+
         return $this;
     }
 
@@ -63,7 +64,7 @@ class PubSubConnector extends RabbitMQConnector
             $this->dispatcher->listen(JobFailed::class, RabbitMQFailedEvent::class);
         }
 
-        $this->dispatcher->listen(WorkerStopping::class, static fn() => $queue->close());
+        $this->dispatcher->listen(WorkerStopping::class, static fn () => $queue->close());
 
         return $queue;
     }

@@ -25,7 +25,7 @@ class QueueJob extends RabbitMQJob
             $subscriber->handle($message);
         }
 
-        if(config('pubsub.queue.worker') === 'horizon') {
+        if (config('pubsub.queue.worker') === 'horizon') {
             $this->fireHorizonEvent();
         }
 
