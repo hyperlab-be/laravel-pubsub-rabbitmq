@@ -17,17 +17,20 @@ class SubscriptionsTest extends TestCase
 
         $this->assertEquals(['user.created', 'user.deleted'], $subscriptions->getMessageTypes());
 
-        $subscriber = $subscriptions->findSubscriberForMessageType('user.created');
+        $userCreatedMessage = new Message('user.created', []);
+        $subscriber = $subscriptions->findSubscriberForMessage($userCreatedMessage);
         $this->assertInstanceOf(Subscriber::class, $subscriber);
         $this->assertEquals(HandleUserCreated::class, $subscriber->getClassName());
         $this->assertEquals('__invoke', $subscriber->getMethodName());
 
-        $subscriber = $subscriptions->findSubscriberForMessageType('user.deleted');
+        $userDeletedMessage = new Message('user.deleted', []);
+        $subscriber = $subscriptions->findSubscriberForMessage($userDeletedMessage);
         $this->assertInstanceOf(Subscriber::class, $subscriber);
         $this->assertEquals(HandleUserDeleted::class, $subscriber->getClassName());
         $this->assertEquals('handle', $subscriber->getMethodName());
 
-        $subscriber = $subscriptions->findSubscriberForMessageType('user.updated');
+        $userUpdatedMessage = new Message('user.updated', []);
+        $subscriber = $subscriptions->findSubscriberForMessage($userUpdatedMessage);
         $this->assertNull($subscriber);
     }
 }

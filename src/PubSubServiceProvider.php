@@ -27,13 +27,12 @@ class PubSubServiceProvider extends PackageServiceProvider
     public function packageBooted()
     {
         if ($this->app->runningInConsole()) {
-            $pathToSubscriptionsFile = config('pubsub.subscriptions');
-
             $this->publishes([
-                $this->package->basePath("/../routes/subscriptions.php") => $pathToSubscriptionsFile,
+                $this->package->basePath("/../routes/subscriptions.php") => config('pubsub.subscriptions'),
             ], "{$this->package->shortName()}-subscriptions");
         }
 
         MessagePublisher::register();
+        PubSubConnector::register();
     }
 }

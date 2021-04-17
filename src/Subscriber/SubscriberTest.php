@@ -2,7 +2,6 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
-use Hyperlab\LaravelPubSubRabbitMQ\Message;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\Log;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\Subscribers\HandleUserCreated;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\Subscribers\HandleUserDeleted;

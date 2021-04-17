@@ -2,8 +2,9 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ\Publisher;
 
-use Hyperlab\LaravelPubSubRabbitMQ\Message;
+use Hyperlab\LaravelPubSubRabbitMQ\PubSubConnector;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 
 class MessagePublisher
 {
@@ -16,7 +17,18 @@ class MessagePublisher
                 return;
             }
 
-            Message::new($event->publishAs(), $event->publishWith())->publish();
+            $config = config('queue.connections.'.config('pubsub.queue.connection'));
+
+            $data = json_encode([
+                'id' => Str::uuid(),
+                'type' => $event->publishAs(),
+                'payload' => $event->publishWith(),
+            ]);
+
+            PubSubConnector::new()
+                ->withDefaultWorker()
+                ->connect($config)
+                ->pushRaw($data, $event->publishAs());
         });
     }
 }

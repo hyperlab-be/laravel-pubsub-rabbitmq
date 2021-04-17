@@ -39,36 +39,27 @@ return [
     'connections' => [
 
         // ...
-
-        'rabbitmq' => [
-            'driver' => 'rabbitmq',
-            'queue' => 'default',
-            'connection' => PhpAmqpLib\Connection\AMQPLazyConnection::class,
+        
+        'pubsub' => [
+            'driver' => 'pubsub',
             'hosts' => [
                 [
-                    'host' => env('PUBSUB_RABBITMQ_HOST', '127.0.0.1'),
-                    'port' => env('PUBSUB_RABBITMQ_PORT', 5672),
-                    'user' => env('PUBSUB_RABBITMQ_USER', 'guest'),
-                    'password' => env('PUBSUB_RABBITMQ_PASSWORD', 'guest'),
-                    'vhost' => env('PUBSUB_RABBITMQ_VHOST', '/'),
+                    'host' => env('RABBITMQ_HOST', '127.0.0.1'),
+                    'port' => env('RABBITMQ_PORT', 5672),
+                    'user' => env('RABBITMQ_USER', 'guest'),
+                    'password' => env('RABBITMQ_PASSWORD', 'guest'),
+                    'vhost' => env('RABBITMQ_VHOST', '/'),
                 ],
             ],
             'options' => [
                 'ssl_options' => [
-                    'cafile' => env('PUBSUB_RABBITMQ_SSL_CAFILE'),
-                    'local_cert' => env('PUBSUB_RABBITMQ_SSL_LOCALCERT'),
-                    'local_key' => env('PUBSUB_RABBITMQ_SSL_LOCALKEY'),
-                    'verify_peer' => env('PUBSUB_RABBITMQ_SSL_VERIFY_PEER', true),
-                    'passphrase' => env('PUBSUB_RABBITMQ_SSL_PASSPHRASE'),
-                ],
-                'queue' => [
-                    'job' => Hyperlab\LaravelPubSubRabbitMQ\Subscriber\RabbitMQJob::class,
-                    'exchange' => env('PUBSUB_RABBITMQ_EXCHANGE'),
-                    'exchange_type' => 'topic',
-                    'prioritize_delayed' =>  true,
+                    'cafile' => env('RABBITMQ_SSL_CAFILE'),
+                    'local_cert' => env('RABBITMQ_SSL_LOCALCERT'),
+                    'local_key' => env('RABBITMQ_SSL_LOCALKEY'),
+                    'verify_peer' => env('RABBITMQ_SSL_VERIFY_PEER', true),
+                    'passphrase' => env('RABBITMQ_SSL_PASSPHRASE'),
                 ],
             ],
-            'worker' => 'default',
         ],
 
     ],
@@ -108,7 +99,14 @@ return [
         /*
          * The queue connection that is used to communicate with RabbitMQ.
          */
-        'connection' => env('PUBSUB_QUEUE_CONNECTION', 'rabbitmq'),
+        'connection' => env('PUBSUB_QUEUE_CONNECTION', 'pubsub'),
+        
+        /*
+         * The queue worker that you want to consume your incoming messages with.
+         *
+         * Valid options are: default, horizon
+         */
+        'worker' => env('PUBSUB_QUEUE_WORKER', 'default'),
 
     ],
 
@@ -156,11 +154,11 @@ The handler of a subscription can be defined in two ways:
     
     In this case, the package looks for a public method in the class that accepts a `Hyperlab\LaravelPubSubRabbitMQ\Message`
     as argument. This method can be called anything, as shown here:
-    
+
     ```php
     class HandleUserCreatedMessage
     {
-        public function __invoke(Hyperlab\LaravelPubSubRabbitMQ\Message $message): void
+        public function __invoke(\Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Message $message): void
         {
             //
         }
@@ -168,7 +166,7 @@ The handler of a subscription can be defined in two ways:
     
     class HandleUserCreatedMessage
     {
-        public function handle(Hyperlab\LaravelPubSubRabbitMQ\Message $message): void
+        public function handle(\Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Message $message): void
         {
             //
         }
@@ -176,7 +174,7 @@ The handler of a subscription can be defined in two ways:
     
     class HandleUserCreatedMessage
     {
-        public function execute(Hyperlab\LaravelPubSubRabbitMQ\Message $message): void
+        public function execute(\Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Message $message): void
         {
             //
         }

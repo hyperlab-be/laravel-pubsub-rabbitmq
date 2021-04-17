@@ -2,7 +2,6 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
-use Hyperlab\LaravelPubSubRabbitMQ\Message;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionNamedType;

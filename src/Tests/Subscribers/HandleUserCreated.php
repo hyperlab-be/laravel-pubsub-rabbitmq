@@ -2,7 +2,7 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ\Tests\Subscribers;
 
-use Hyperlab\LaravelPubSubRabbitMQ\Message;
+use Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Message;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\Log;
 
 class HandleUserCreated

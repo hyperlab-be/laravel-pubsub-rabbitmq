@@ -23,6 +23,13 @@ return [
          */
         'connection' => env('PUBSUB_QUEUE_CONNECTION', 'rabbitmq'),
 
+        /*
+         * The queue worker that you want to consume your incoming messages with.
+         *
+         * Valid options are: default, horizon
+         */
+        'worker' => env('PUBSUB_QUEUE_WORKER', 'default'),
+
     ],
 
     /*

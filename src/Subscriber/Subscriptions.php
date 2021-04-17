@@ -44,9 +44,9 @@ class Subscriptions
         return $this->subscriptions->keys()->all();
     }
 
-    public function findSubscriberForMessageType(string $messageType): ?Subscriber
+    public function findSubscriberForMessage(Message $message): ?Subscriber
     {
-        $subscriber = $this->subscriptions->get($messageType);
+        $subscriber = $this->subscriptions->get($message->getType());
 
         if ($subscriber === null) {
             return null;
