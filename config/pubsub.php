@@ -21,7 +21,7 @@ return [
         /*
          * The queue connection that is used to communicate with RabbitMQ.
          */
-        'connection' => env('PUBSUB_QUEUE_CONNECTION', 'rabbitmq'),
+        'connection' => env('PUBSUB_QUEUE_CONNECTION', 'pubsub'),
 
         /*
          * The queue worker that you want to consume your incoming messages with.

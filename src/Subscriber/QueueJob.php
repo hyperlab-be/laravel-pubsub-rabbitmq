@@ -21,23 +21,34 @@ class QueueJob extends RabbitMQJob
 
         $subscriber = Subscriptions::new()->findSubscriberForMessage($message);
 
-        if ($subscriber !== null) {
-            $subscriber->handle($message);
+        if(config('pubsub.queue.worker') === 'horizon') {
+            $this->fireHorizonEvent($message);
         }
 
-        if(config('pubsub.queue.worker') === 'horizon') {
-            $this->fireHorizonEvent();
+        if ($subscriber !== null) {
+            $subscriber->handle($message);
         }
 
         $this->delete();
     }
 
-    protected function fireHorizonEvent(): void
+    protected function fireHorizonEvent(Message $message): void
     {
-        $eventPayload = $this->payload();
-        $eventPayload['data']['commandName'] = 'command name';
-        $eventPayload['displayName'] = 'display name';
-        $eventPayload = json_encode($eventPayload);
+        $eventPayload = json_encode([
+            "id" => $message->getId(),
+            "uuid" => $message->getId(),
+            "displayName" => "Handle pub/sub message",
+            "data" => [
+                'command' => serialize($message->getPayload()),
+                'commandName' => $message->getType(),
+            ],
+            "pushedAt" => $message->getPublishedAt()->timestamp,
+            "tags" => [
+                $message->getType()
+            ],
+            "job" => self::class."@call",
+            "type" => "job",
+        ]);
 
         $event = (new JobPushed($eventPayload))
             ->connection($this->connectionName)

@@ -23,6 +23,7 @@ class MessagePublisher
                 'id' => Str::uuid(),
                 'type' => $event->publishAs(),
                 'payload' => $event->publishWith(),
+                'published_at' => now()->toIso8601String(),
             ]);
 
             PubSubConnector::new()

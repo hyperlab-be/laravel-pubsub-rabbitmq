@@ -2,20 +2,31 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
+use Illuminate\Support\Carbon;
+
 class Message
 {
-    public function __construct(private string $type, private array $payload)
+    public function __construct(
+        private string $id, private string $type, private array $payload, private Carbon $publishedAt
+    )
     {
     }
 
-    public static function new(string $type, array $payload): static
+    public static function new(string $id, string $type, array $payload, Carbon $publishedAt): static
     {
-        return new static($type, $payload);
+        return new static($id, $type, $payload, $publishedAt);
     }
 
     public static function deserialize(array $serialization): static
     {
-        return new static($serialization['type'], $serialization['payload']);
+        $publishedAt = Carbon::parse($serialization['published_at']);
+
+        return new static($serialization['id'], $serialization['type'], $serialization['payload'], $publishedAt);
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     public function getType(): string
@@ -26,5 +37,10 @@ class Message
     public function getPayload(): array
     {
         return $this->payload;
+    }
+
+    public function getPublishedAt(): Carbon
+    {
+        return $this->publishedAt;
     }
 }
