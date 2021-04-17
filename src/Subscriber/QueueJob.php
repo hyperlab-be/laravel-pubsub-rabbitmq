@@ -20,7 +20,7 @@ class QueueJob extends RabbitMQJob
 
         $subscriber = Subscriptions::new()->findSubscriberForMessage($message);
 
-        if(config('pubsub.queue.worker') === 'horizon') {
+        if (config('pubsub.queue.worker') === 'horizon') {
             $this->fireHorizonEvent($message);
         }
 
@@ -43,7 +43,7 @@ class QueueJob extends RabbitMQJob
             ],
             "pushedAt" => $message->getPublishedAt()->timestamp,
             "tags" => [
-                $message->getType()
+                $message->getType(),
             ],
             "job" => self::class."@call",
             "type" => "job",

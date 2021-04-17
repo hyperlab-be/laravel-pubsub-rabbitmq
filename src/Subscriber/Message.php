@@ -7,9 +7,11 @@ use Illuminate\Support\Carbon;
 class Message
 {
     public function __construct(
-        private string $id, private string $type, private array $payload, private Carbon $publishedAt
-    )
-    {
+        private string $id,
+        private string $type,
+        private array $payload,
+        private Carbon $publishedAt
+    ) {
     }
 
     public static function new(string $id, string $type, array $payload, Carbon $publishedAt): static
