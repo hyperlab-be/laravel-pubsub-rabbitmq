@@ -3,7 +3,6 @@
 namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Laravel\Horizon\Events\JobPushed;
 use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob;
 
 class QueueJob extends RabbitMQJob
@@ -39,7 +38,7 @@ class QueueJob extends RabbitMQJob
             "uuid" => $message->getId(),
             "displayName" => "Handle pub/sub message",
             "data" => [
-                'command' => serialize($message->getPayload()),
+                'command' => serialize($this->payload()),
                 'commandName' => $message->getType(),
             ],
             "pushedAt" => $message->getPublishedAt()->timestamp,
@@ -50,7 +49,7 @@ class QueueJob extends RabbitMQJob
             "type" => "job",
         ]);
 
-        $event = (new JobPushed($eventPayload))
+        $event = (new Laravel\Horizon\Events\JobPushed($eventPayload))
             ->connection($this->connectionName)
             ->queue($this->queue);
 
