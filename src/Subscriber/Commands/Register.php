@@ -2,10 +2,11 @@
 
 namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Commands;
 
+use Hyperlab\LaravelPubSubRabbitMQ\PubSubConnector;
 use Hyperlab\LaravelPubSubRabbitMQ\Subscriber\Subscriptions;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use PhpAmqpLib\Exchange\AMQPExchangeType;
+use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue;
 
 class Register extends Command
 {
@@ -13,38 +14,50 @@ class Register extends Command
 
     public $description = 'Register the consumer with RabbitMQ.';
 
-    public function handle()
+    public function handle(): void
     {
-        $queueConnection = config('pubsub.queue.connection');
         $exchange = config('pubsub.rabbitmq.exchange');
         $queue = config('pubsub.rabbitmq.queue');
 
-        $this->declareExchange($queueConnection, $exchange);
-        $this->declareQueue($queueConnection, $queue);
-        $this->declareQueueBindings($queueConnection, $exchange, $queue);
+        $config = config('queue.connections.'.config('pubsub.queue.connection'));
+        $connection = PubSubConnector::new()->connect($config);
+
+        $this->declareExchange($connection, $exchange);
+        $this->declareQueue($connection, $queue);
+        $this->declareQueueBindings($connection, $exchange, $queue);
     }
 
-    private function declareExchange(string $queueConnection, string $exchange): void
+    private function declareExchange(RabbitMQQueue $connection, string $exchange): void
     {
-        $this->artisan("rabbitmq:exchange-declare {$exchange} {$queueConnection} --type topic");
+        if ($connection->isExchangeExists($exchange)) {
+            $this->warn('Exchange already exists.');
+            return;
+        }
+
+        $connection->declareExchange($exchange, AMQPExchangeType::TOPIC);
+
+        $this->info('Exchange declared successfully.');
     }
 
-    private function declareQueue(string $queueConnection, string $queue): void
+    private function declareQueue(RabbitMQQueue $connection, string $queue): void
     {
-        $this->artisan("rabbitmq:queue-declare {$queue} {$queueConnection}");
+        if ($connection->isQueueExists($queue)) {
+            $this->warn('Queue already exists.');
+            return;
+        }
+
+        $connection->declareQueue($queue);
+
+        $this->info('Queue declared successfully.');
     }
 
-    private function declareQueueBindings(string $queueConnection, string $exchange, string $queue): void
+    private function declareQueueBindings(RabbitMQQueue $connection, string $exchange, string $queue): void
     {
         $routingKeys = Subscriptions::new()->getMessageTypes();
 
         foreach ($routingKeys as $routingKey) {
-            $this->artisan("rabbitmq:queue-bind {$queue} {$exchange} {$queueConnection} --routing-key {$routingKey}");
+            $connection->bindQueue($queue, $exchange, $routingKey);
+            $this->info('Queue bound to exchange successfully.');
         }
-    }
-
-    private function artisan(string $command): void
-    {
-        Artisan::call($command, [], new ConsoleOutput);
     }
 }
