@@ -43,7 +43,7 @@ class Register extends Command
             try {
                 $connection = $connector->connect($config);
             } catch (AMQPIOException $e) {
-                if($e->getCode() !== 111 || $timeout <= 0) {
+                if ($e->getCode() !== 111 || $timeout <= 0) {
                     throw $e;
                 }
                 $timeout--;
