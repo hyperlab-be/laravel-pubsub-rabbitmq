@@ -31,6 +31,7 @@ class Register extends Command
     {
         if ($connection->isExchangeExists($exchange)) {
             $this->warn('Exchange already exists.');
+
             return;
         }
 
@@ -43,6 +44,7 @@ class Register extends Command
     {
         if ($connection->isQueueExists($queue)) {
             $this->warn('Queue already exists.');
+
             return;
         }
 
