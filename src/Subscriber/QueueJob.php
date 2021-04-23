@@ -4,6 +4,7 @@ namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob;
+use Laravel\Horizon\Events\JobPushed;
 
 class QueueJob extends RabbitMQJob
 {
@@ -49,9 +50,7 @@ class QueueJob extends RabbitMQJob
             "type" => "job",
         ]);
 
-        $event = (new Laravel\Horizon\Events\JobPushed($eventPayload))
-            ->connection($this->connectionName)
-            ->queue($this->queue);
+        $event = (new JobPushed($eventPayload))->connection($this->connectionName)->queue($this->queue);
 
         app(Dispatcher::class)->dispatch($event);
     }
