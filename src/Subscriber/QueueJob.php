@@ -3,8 +3,8 @@
 namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob;
 use Laravel\Horizon\Events\JobPushed;
+use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob;
 
 class QueueJob extends RabbitMQJob
 {
