@@ -3,8 +3,8 @@
 namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Laravel\Horizon\Events\JobPushed;
 use Laravel\Horizon\Events\JobFailed;
+use Laravel\Horizon\Events\JobPushed;
 use Laravel\Horizon\Events\RedisEvent;
 use Throwable;
 use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob;
