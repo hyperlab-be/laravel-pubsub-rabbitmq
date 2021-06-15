@@ -9,7 +9,7 @@ class HandleUserCreated
 {
     public function __invoke(Message $message): void
     {
-        $firstName = $message->getPayload()['first_name'];
+        $firstName = $message->getPayload()->get('first_name');
 
         Log::write("Welcome, {$firstName}!");
     }

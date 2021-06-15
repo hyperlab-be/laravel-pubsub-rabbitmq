@@ -5,6 +5,8 @@ namespace Hyperlab\LaravelPubSubRabbitMQ\Subscriber;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\Subscribers\HandleUserCreated;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\Subscribers\HandleUserDeleted;
 use Hyperlab\LaravelPubSubRabbitMQ\Tests\TestCase;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class SubscriptionsTest extends TestCase
 {
@@ -17,19 +19,19 @@ class SubscriptionsTest extends TestCase
 
         $this->assertEquals(['user.created', 'user.deleted'], $subscriptions->getMessageTypes());
 
-        $userCreatedMessage = new Message('user.created', []);
+        $userCreatedMessage = new Message(Str::uuid()->toString(), 'user.created', MessagePayload::new(), Carbon::now());
         $subscriber = $subscriptions->findSubscriberForMessage($userCreatedMessage);
         $this->assertInstanceOf(Subscriber::class, $subscriber);
         $this->assertEquals(HandleUserCreated::class, $subscriber->getClassName());
         $this->assertEquals('__invoke', $subscriber->getMethodName());
 
-        $userDeletedMessage = new Message('user.deleted', []);
+        $userDeletedMessage = new Message(Str::uuid()->toString(), 'user.deleted', MessagePayload::new(), Carbon::now());
         $subscriber = $subscriptions->findSubscriberForMessage($userDeletedMessage);
         $this->assertInstanceOf(Subscriber::class, $subscriber);
         $this->assertEquals(HandleUserDeleted::class, $subscriber->getClassName());
         $this->assertEquals('handle', $subscriber->getMethodName());
 
-        $userUpdatedMessage = new Message('user.updated', []);
+        $userUpdatedMessage = new Message(Str::uuid()->toString(), 'user.updated', MessagePayload::new(), Carbon::now());
         $subscriber = $subscriptions->findSubscriberForMessage($userUpdatedMessage);
         $this->assertNull($subscriber);
     }

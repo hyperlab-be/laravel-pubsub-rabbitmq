@@ -9,7 +9,7 @@ class HandleUserDeleted
 {
     public function handle(Message $message): void
     {
-        $email = $message->getPayload()['email'];
+        $email = $message->getPayload()->get('email');
 
         Log::write("Goodbye email sent to {$email}");
     }

@@ -9,12 +9,12 @@ class Message
     public function __construct(
         private string $id,
         private string $type,
-        private array $payload,
+        private MessagePayload $payload,
         private Carbon $publishedAt
     ) {
     }
 
-    public static function new(string $id, string $type, array $payload, Carbon $publishedAt): static
+    public static function new(string $id, string $type, MessagePayload $payload, Carbon $publishedAt): static
     {
         return new static($id, $type, $payload, $publishedAt);
     }
@@ -23,7 +23,9 @@ class Message
     {
         $publishedAt = Carbon::parse($serialization['published_at']);
 
-        return new static($serialization['id'], $serialization['type'], $serialization['payload'], $publishedAt);
+        $payload = MessagePayload::new($serialization['payload']);
+
+        return new static($serialization['id'], $serialization['type'], $payload, $publishedAt);
     }
 
     public function getId(): string
@@ -36,7 +38,7 @@ class Message
         return $this->type;
     }
 
-    public function getPayload(): array
+    public function getPayload(): MessagePayload
     {
         return $this->payload;
     }
